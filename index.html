@@ -39,11 +39,9 @@
 html { font-size: 16px; background: var(--bg); color: var(--text); font-family: var(--sans); }
 body { min-height: 100vh; }
 
-/* ── APP ── */
 #app { opacity: 0; transition: opacity 0.4s; }
 #app.visible { opacity: 1; }
 
-/* Top bar */
 .topbar {
   display: flex;
   align-items: center;
@@ -118,19 +116,16 @@ body { min-height: 100vh; }
   align-items: center;
   gap: 0.38rem;
   letter-spacing: 0.04em;
+  line-height: 1;
 }
 .sync-btn:hover { border-color: var(--accent); color: var(--accent); }
-.sync-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
-.sync-dot.syncing { background: var(--amber); animation: pulse 1s infinite; }
-.sync-dot.synced  { background: var(--green); }
-.sync-dot.error   { background: var(--red); }
+.import-label { cursor: pointer; }
+
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-/* Tab panels */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* Week nav */
 .week-nav {
   display: flex;
   align-items: center;
@@ -164,7 +159,6 @@ body { min-height: 100vh; }
   font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase;
 }
 
-/* Main grid */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -181,7 +175,6 @@ body { min-height: 100vh; }
   margin-bottom: 0.75rem;
 }
 
-/* Hours */
 .hours-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -221,7 +214,6 @@ body { min-height: 100vh; }
 .hour-bar.warn { background: var(--amber); }
 .hour-bar.over { background: var(--green); }
 
-/* Qual sections */
 .qual-section {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -262,7 +254,6 @@ body { min-height: 100vh; }
   margin-bottom: 0.28rem;
 }
 
-/* Stars */
 .rating-row { display: flex; gap: 0.2rem; margin-bottom: 0.4rem; }
 .star-btn {
   background: none; border: none; cursor: pointer;
@@ -272,7 +263,6 @@ body { min-height: 100vh; }
 .star-btn:hover { transform: scale(1.15); }
 .star-btn.active { color: var(--accent); }
 
-/* Sidebar */
 .sidebar { display: flex; flex-direction: column; gap: 0.65rem; }
 
 .fin-card, .progress-card, .exp-card, .oq-card, .score-card, .history-card,
@@ -317,7 +307,6 @@ body { min-height: 100vh; }
 .oq-item:last-child { border-bottom: none; padding-bottom: 0; }
 .oq-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.45; flex-shrink: 0; }
 
-/* Score */
 .score-label { font-family: var(--mono); font-size: 0.6rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.35rem; }
 .score-number { font-family: var(--display); font-size: 2.8rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.18rem; }
 .score-sub { font-family: var(--mono); font-size: 0.62rem; color: var(--text3); margin-bottom: 0.85rem; }
@@ -325,7 +314,6 @@ body { min-height: 100vh; }
 .score-item { font-family: var(--mono); font-size: 0.62rem; color: var(--text2); display: flex; align-items: center; gap: 0.32rem; }
 .score-item-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
 
-/* History */
 .history-grid { display: flex; gap: 3px; flex-wrap: wrap; }
 .history-cell {
   width: 20px; height: 20px; border-radius: 3px;
@@ -345,7 +333,6 @@ body { min-height: 100vh; }
 }
 .history-cell:hover .week-tooltip { display: block; }
 
-/* Daily Heatmap */
 .day-heatmap-wrap {
   display: flex;
   gap: 4px;
@@ -408,7 +395,6 @@ body { min-height: 100vh; }
 .save-toast.success { border-color: rgba(212,168,67,0.25); color: var(--accent); }
 .save-toast.error-toast { border-color: rgba(240,98,95,0.25); color: var(--red); }
 
-/* ── EVIDENCE LEDGER ── */
 .evidence-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; }
 .evidence-item { }
 .evidence-chip {
@@ -422,7 +408,6 @@ body { min-height: 100vh; }
 .evidence-chip.backend { background: rgba(159,124,245,0.12); color: var(--purple); }
 .evidence-chip.leadership { background: rgba(240,176,74,0.12); color: var(--amber); }
 
-/* ── MISSION STATUS ── */
 .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0; }
 .mission-item {
   background: var(--bg3); border: 1px solid var(--border);
@@ -441,7 +426,6 @@ body { min-height: 100vh; }
 .mission-status.stable { background: rgba(159,124,245,0.12); color: var(--purple); }
 .mission-status.neglected { background: rgba(240,176,74,0.12); color: var(--amber); }
 
-/* ── CONFIDENCE TRACKER ── */
 .conf-row {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0.42rem 0; border-bottom: 1px solid var(--border);
@@ -458,7 +442,6 @@ body { min-height: 100vh; }
 .conf-dot.active { background: var(--accent); border-color: var(--accent); }
 .conf-dot:hover { border-color: var(--accent); }
 
-/* ── MONTHLY SNAPSHOT ── */
 .snapshot-tab-row {
   display: flex; gap: 0.3rem; margin-bottom: 0.85rem; flex-wrap: wrap;
 }
@@ -471,7 +454,6 @@ body { min-height: 100vh; }
 .snapshot-month-btn.active { background: var(--accent2); border-color: var(--accent3); color: var(--accent); }
 .snapshot-fields { display: flex; flex-direction: column; gap: 0.55rem; }
 
-/* ── DAILY TAB ── */
 .daily-wrap { padding: 1.5rem 2rem 5rem; max-width: 1000px; }
 .daily-header {
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -481,7 +463,6 @@ body { min-height: 100vh; }
 .daily-date { font-family: var(--mono); font-size: 0.68rem; color: var(--text3); }
 .daily-cols { display: grid; grid-template-columns: 1fr 280px; gap: 1.25rem; align-items: start; }
 
-/* Tasks */
 .task-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem; }
 .task-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
 .task-section-title { font-size: 0.78rem; font-weight: 600; }
@@ -541,7 +522,6 @@ body { min-height: 100vh; }
 }
 .task-delete-btn:hover { color: var(--red); }
 
-/* Daily side */
 .daily-side { display: flex; flex-direction: column; gap: 0.65rem; }
 .goals-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
 .goals-title { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.85rem; }
@@ -581,7 +561,6 @@ body { min-height: 100vh; }
 }
 .day-nav-btn:hover { border-color: var(--border2); color: var(--text); }
 
-/* ── TOP3 ── */
 .top3-list { display: flex; flex-direction: column; gap: 0.4rem; }
 .top3-item { display: flex; align-items: center; gap: 0.5rem; }
 .top3-num { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--text3); width: 16px; flex-shrink: 0; font-style: italic; }
@@ -593,7 +572,6 @@ body { min-height: 100vh; }
 .top3-input:focus { border-color: var(--accent); }
 .top3-input::placeholder { color: var(--text3); }
 
-/* Responsive */
 @media(max-width: 960px) {
   .main-grid { grid-template-columns: 1fr; }
   .topbar { padding: 0.7rem 1rem; flex-wrap: wrap; gap: 0.5rem; height: auto; }
@@ -614,64 +592,11 @@ body { min-height: 100vh; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
 select.text-field { appearance: none; cursor: pointer; }
-
-/* Gist drawer (optional) */
-.gist-drawer {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 300;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.25s;
-}
-.gist-drawer.open { opacity: 1; pointer-events: all; }
-.gist-box {
-  background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px;
-  padding: 1.75rem; width: 420px; max-width: 95vw;
-}
-.gist-box h2 { font-family: var(--display); font-size: 1.2rem; font-weight: 600; margin-bottom: 0.3rem; }
-.gist-box p { font-family: var(--mono); font-size: 0.7rem; color: var(--text2); line-height: 1.8; margin-bottom: 1.25rem; }
-.gist-field { margin-bottom: 1rem; }
-.gist-field label { display: block; font-family: var(--mono); font-size: 0.62rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.38rem; }
-.gist-field input {
-  width: 100%; background: var(--bg3); border: 1px solid var(--border2);
-  border-radius: 7px; padding: 0.65rem 0.9rem; color: var(--text);
-  font-family: var(--mono); font-size: 0.78rem; outline: none; transition: border-color 0.2s;
-}
-.gist-field input:focus { border-color: var(--accent); }
-.gist-field input::placeholder { color: var(--text3); }
-.gist-row { display: flex; gap: 0.5rem; }
-.gist-btn {
-  flex: 1; padding: 0.7rem; border: none; border-radius: 7px;
-  font-family: var(--sans); font-size: 0.82rem; font-weight: 700;
-  cursor: pointer; transition: opacity 0.2s;
-}
-.gist-btn.primary { background: var(--accent); color: var(--bg); }
-.gist-btn.secondary { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
-.gist-btn:hover { opacity: 0.85; }
-#gist-error { font-family: var(--mono); font-size: 0.68rem; color: var(--red); margin-top: 0.6rem; display: none; }
 </style>
 </head>
 <body>
 
-<!-- Gist Drawer (optional, secondary) -->
-<div class="gist-drawer" id="gist-drawer">
-  <div class="gist-box">
-    <h2>Sync Settings</h2>
-    <p>
-      Paste your GitHub Gist ID or URL to sync data across devices.<br/>
-      Without it, everything is saved locally in your browser.
-    </p>
-    <div class="gist-field">
-      <label>Gist URL or ID</label>
-      <input type="text" id="gh-gist-url" placeholder="https://gist.github.com/user/abc123" autocomplete="off" />
-    </div>
-    <div id="gist-error"></div>
-    <div class="gist-row">
-      <button class="gist-btn primary" id="gist-connect-btn">Connect</button>
-      <button class="gist-btn secondary" id="gist-close-btn">Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN APP (lands directly) -->
+<!-- MAIN APP -->
 <div id="app">
   <div class="topbar">
     <div class="topbar-left">
@@ -683,12 +608,12 @@ select.text-field { appearance: none; cursor: pointer; }
       <button class="tab-btn" data-tab="daily">Daily</button>
     </div>
     <div class="topbar-right">
-      <button class="sync-btn" id="sync-btn">
-        <span class="sync-dot" id="sync-dot"></span>
-        <span id="sync-label">Local</span>
-      </button>
-      <button class="sync-btn" id="gist-settings-btn" title="Sync settings">⇅</button>
-      <button class="sync-btn" id="settings-btn" title="Clear data" style="border-color:transparent;color:var(--text3)">⚙</button>
+      <button class="sync-btn" id="export-btn" title="Export all data as JSON">↓ Export</button>
+      <label class="sync-btn import-label" title="Import JSON data">
+        ↑ Import
+        <input type="file" id="import-input" accept=".json" style="display:none" />
+      </label>
+      <button class="sync-btn" id="settings-btn" title="Clear all data" style="border-color:transparent;color:var(--text3)">⚙</button>
     </div>
   </div>
 
@@ -832,9 +757,7 @@ select.text-field { appearance: none; cursor: pointer; }
             <div class="qual-section-title">Confidence Tracker</div>
             <div class="qual-tag">weekly 1–5</div>
           </div>
-          <div id="confidence-tracker">
-            <!-- built by JS -->
-          </div>
+          <div id="confidence-tracker"></div>
         </div>
 
         <!-- Mission Status -->
@@ -843,9 +766,7 @@ select.text-field { appearance: none; cursor: pointer; }
             <div class="qual-section-title">Mission Status</div>
             <div class="qual-tag">click to toggle</div>
           </div>
-          <div class="mission-grid" id="mission-status-grid">
-            <!-- built by JS -->
-          </div>
+          <div class="mission-grid" id="mission-status-grid"></div>
         </div>
 
         <!-- Adjustments -->
@@ -943,7 +864,6 @@ select.text-field { appearance: none; cursor: pointer; }
           <div class="history-grid" id="history-grid"></div>
         </div>
 
-
       </div><!-- /sidebar -->
     </div><!-- /main-grid -->
   </div>
@@ -1028,14 +948,12 @@ select.text-field { appearance: none; cursor: pointer; }
     </div>
   </div>
 
-
 </div><!-- /app -->
 
 <div class="save-toast" id="save-toast"></div>
 
 <script>
 // ── CONFIG ──────────────────────────────────────────
-const GIST_FILENAME = 'life-system-2026.json';
 const START_DATE = new Date('2026-06-01');
 const END_DATE   = new Date('2026-12-31');
 
@@ -1075,39 +993,25 @@ const CONFIDENCE_DIMS = [
 ];
 
 const MISSION_DIMS = [
-  { key: 'career',   label: 'Career',   states: ['On Track','At Risk'],   colors: ['on-track','at-risk'] },
-  { key: 'finance',  label: 'Finance',  states: ['On Track','At Risk'],   colors: ['on-track','at-risk'] },
-  { key: 'health',   label: 'Health',   states: ['On Track','At Risk'],   colors: ['on-track','at-risk'] },
-  { key: 'social',   label: 'Social',   states: ['Stable','At Risk'],     colors: ['stable','at-risk'] },
-  { key: 'exp',      label: 'Experiment', states: ['Active','Neglected'], colors: ['active','neglected'] },
-];
-
-const MONTHS = [
-  { num: 6,  label: 'Jun' }, { num: 7,  label: 'Jul' },
-  { num: 8,  label: 'Aug' }, { num: 9,  label: 'Sep' },
-  { num: 10, label: 'Oct' }, { num: 11, label: 'Nov' },
+  { key: 'career',   label: 'Career',     states: ['On Track','At Risk'],   colors: ['on-track','at-risk'] },
+  { key: 'finance',  label: 'Finance',    states: ['On Track','At Risk'],   colors: ['on-track','at-risk'] },
+  { key: 'health',   label: 'Health',     states: ['On Track','At Risk'],   colors: ['on-track','at-risk'] },
+  { key: 'social',   label: 'Social',     states: ['Stable','At Risk'],     colors: ['stable','at-risk'] },
+  { key: 'exp',      label: 'Experiment', states: ['Active','Neglected'],   colors: ['active','neglected'] },
 ];
 
 const QUAL_FIELDS = [
   'work-well','work-wrong','backend-note','coding-note',
   'career-build','career-strat','health-note','social-note','adjustments'
 ];
-const EV_FIELDS = ['ev-enjoyed','ev-disliked','ev-surprising','ev-product','ev-backend','ev-leadership'];
-const SNAP_FIELDS = ['snap-win','snap-failure','snap-lesson','snap-change','snap-next'];
 const FIN_FIELDS = ['fin-emergency','fin-relocation','fin-replacement','fin-investments'];
 const RATINGS = ['work-rating','backend-rating','energy-building','strategy-pull','health-rating','isolation-rating'];
 
 // ── STATE ───────────────────────────────────────────
-let ghToken  = '';
-let gistId   = '';
 let allData  = {};
 let currentWeek = 0;
-let evWeek   = 0;
 let saveTimer = null;
-let isSyncing = false;
 let currentDayOffset = 0;
-let currentSnapshotMonth = 6;
-let currentEvidenceFilter = 'all';
 let currentTaskCat = 'all';
 
 // ── UTILS ───────────────────────────────────────────
@@ -1142,130 +1046,44 @@ function showToast(msg, type='') {
   clearTimeout(t._timer);
   t._timer = setTimeout(() => t.className = 'save-toast', 2500);
 }
-function setSyncState(state) {
-  const dot = document.getElementById('sync-dot');
-  const lbl = document.getElementById('sync-label');
-  dot.className = 'sync-dot ' + state;
-  lbl.textContent = state === 'syncing' ? 'Syncing…' : state === 'synced' ? 'Synced' : state === 'error' ? 'Error' : 'Local';
-}
 function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 // ── LOCAL STORAGE ────────────────────────────────────
 function saveLocal() {
-  try { localStorage.setItem('ls26-data', JSON.stringify(allData)); } catch(e){}
+  try { localStorage.setItem('ls26-data', JSON.stringify(allData)); } catch(e) {}
 }
 function loadLocal() {
   try { const raw = localStorage.getItem('ls26-data'); return raw ? JSON.parse(raw) : {}; }
   catch(e) { return {}; }
 }
 
-// ── GIST API ─────────────────────────────────────────
-function extractGistId(input) {
-  input = input.trim();
-  const m = input.match(/gist\.github\.com\/[^\/]+\/([a-f0-9]+)/i)
-           || input.match(/gist\.github\.com\/([a-f0-9]+)/i);
-  if (m) return m[1];
-  if (/^[a-f0-9]{20,}$/i.test(input)) return input;
-  return null;
-}
-async function fetchGist() {
-  if (!gistId) return {};
-  const headers = { 'Accept': 'application/vnd.github.v3+json' };
-  if (ghToken) headers['Authorization'] = `token ${ghToken}`;
-  const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers });
-  if (!res.ok) throw new Error('Fetch failed: ' + res.status);
-  const g = await res.json();
-  const file = g.files[GIST_FILENAME];
-  if (!file) return {};
-  return JSON.parse(file.content || '{}');
-}
-async function pushGist(data) {
-  if (!gistId || !ghToken) return;
-  const body = { files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } } };
-  const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-    method: 'PATCH',
-    headers: { 'Authorization': `token ${ghToken}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) throw new Error('Push failed: ' + res.status);
-}
-async function syncNow(silent=false) {
-  if (isSyncing) return;
-  if (!gistId) { saveLocal(); if (!silent) showToast('✓ Saved locally', 'success'); return; }
-  isSyncing = true; setSyncState('syncing');
-  try {
-    const remote = await fetchGist();
-    allData = Object.assign({}, remote, allData);
-    await pushGist(allData);
-    saveLocal(); setSyncState('synced');
-    if (!silent) showToast('✓ Synced to Gist', 'success');
-    renderHistory();
-  } catch(e) {
-    saveLocal(); setSyncState('error');
-    if (!silent) showToast('Sync failed — saved locally', 'error-toast');
-  } finally { isSyncing = false; }
-}
-
 // ── LAUNCH ───────────────────────────────────────────
 function launchApp() {
   currentWeek = currentWeekOffset();
-  evWeek = currentWeek;
   buildHoursGrid();
   buildConfidenceTracker();
   buildMissionStatus();
-  buildSnapshotTabs();
   renderWeek();
   renderHistory();
   renderDayHeatmap();
   renderDaily();
-  setSyncState(gistId ? 'synced' : 'synced');
   document.getElementById('app').classList.add('visible');
-  setInterval(() => { collectCurrentWeek(); collectDaily(); syncNow(true); }, 30000);
+  setInterval(() => { collectCurrentWeek(); collectDaily(); saveLocal(); }, 30000);
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('DOMContentLoaded', () => {
   allData = loadLocal();
-  const g = localStorage.getItem('ls26-gist');
-  if (g) {
-    gistId = g;
-    try { allData = Object.assign({}, allData, await fetchGist()); } catch(e) {}
-  }
   launchApp();
 });
 
-// ── GIST DRAWER ──────────────────────────────────────
-document.getElementById('gist-settings-btn').addEventListener('click', () => {
-  document.getElementById('gist-drawer').classList.add('open');
-  if (gistId) document.getElementById('gh-gist-url').value = gistId;
-});
-document.getElementById('gist-close-btn').addEventListener('click', () => {
-  document.getElementById('gist-drawer').classList.remove('open');
-});
-document.getElementById('gist-drawer').addEventListener('click', e => {
-  if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-});
-document.getElementById('gist-connect-btn').addEventListener('click', async () => {
-  const err = document.getElementById('gist-error');
-  err.style.display = 'none';
-  const raw = document.getElementById('gh-gist-url').value.trim();
-  const id = extractGistId(raw);
-  if (!id && raw) { err.textContent = 'Could not parse Gist ID from that URL.'; err.style.display='block'; return; }
-  if (id) {
-    gistId = id;
-    localStorage.setItem('ls26-gist', gistId);
-    document.getElementById('gist-drawer').classList.remove('open');
-    await syncNow(false);
-  } else {
-    gistId = ''; localStorage.removeItem('ls26-gist');
-    document.getElementById('gist-drawer').classList.remove('open');
-    setSyncState('');
-  }
-});
-
+// ── SETTINGS / CLEAR ─────────────────────────────────
 document.getElementById('settings-btn').addEventListener('click', () => {
-  if (confirm('Clear all saved data and reset?')) { localStorage.clear(); location.reload(); }
+  if (confirm('Clear all saved data and reset? This cannot be undone.')) {
+    localStorage.clear();
+    location.reload();
+  }
 });
 
 // ── TABS ─────────────────────────────────────────────
@@ -1276,8 +1094,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
     if (btn.dataset.tab === 'daily') renderDayHeatmap();
-    if (btn.dataset.tab === 'evidence') { if(typeof renderEvidence==='function') renderEvidence(); }
-    if (btn.dataset.tab === 'snapshot') { if(typeof renderSnapshot==='function') renderSnapshot(); }
   });
 });
 
@@ -1394,7 +1210,6 @@ function loadMissionStatus() {
 function initRatings() {
   document.querySelectorAll('.rating-row').forEach(row => {
     const key = row.dataset.key;
-    // Build star buttons if not already present
     if (!row.children.length) {
       [1,2,3,4,5].forEach(v => {
         const btn = document.createElement('button');
@@ -1440,30 +1255,27 @@ function updateFinTotal() {
 function computeScore() {
   const wk = weekKey(currentWeek);
   const hours = allData[wk]?.hours || {};
-  const ratings = allData[wk]?.ratings || {};
   let score = 0, parts = [];
-
-  function addBucket(key, min, max, label, color) {
-    const h = hours[key] || 0;
-    const s = h >= min ? 25 : h > 0 ? Math.round((h/min)*25) : 0;
-    score += s;
-    parts.push({ label, color, val: s, max: 25 });
-  }
-
   const bMap = {};
   BUCKETS.forEach(b => bMap[b.key] = b);
-  addBucket('backend', bMap.backend.min, bMap.backend.max, 'Backend', 'var(--purple)');
-  addBucket('coding',  bMap.coding.min,  bMap.coding.max,  'Coding',  'var(--accent)');
-  addBucket('physical',bMap.physical.min,bMap.physical.max,'Health',  'var(--green)');
-  addBucket('social',  bMap.social.min,  bMap.social.max,  'Social',  'var(--gold)');
-
+  function addBucket(key, label, color) {
+    const b = bMap[key];
+    const h = hours[key] || 0;
+    const s = h >= b.min ? 25 : h > 0 ? Math.round((h/b.min)*25) : 0;
+    score += s;
+    parts.push({ label, color, val: s });
+  }
+  addBucket('backend',  'Backend',  'var(--purple)');
+  addBucket('coding',   'Coding',   'var(--accent)');
+  addBucket('physical', 'Health',   'var(--green)');
+  addBucket('social',   'Social',   'var(--gold)');
   document.getElementById('opt-score').textContent = Math.min(100, score);
   const bd = document.getElementById('score-breakdown');
   bd.innerHTML = '';
   parts.forEach(p => {
     const el = document.createElement('div');
     el.className = 'score-item';
-    el.innerHTML = `<div class="score-item-dot" style="background:${p.color}"></div>${p.label} ${p.val}/${p.max}`;
+    el.innerHTML = `<div class="score-item-dot" style="background:${p.color}"></div>${p.label} ${p.val}/25`;
     bd.appendChild(el);
   });
 }
@@ -1554,26 +1366,17 @@ function renderDayHeatmap() {
   const labelCol = document.getElementById('day-heatmap-labels');
   const grid = document.getElementById('day-heatmap-grid');
   if (!labelCol || !grid) return;
-
-  // Left-side day labels Mon–Sun
   const DAY_LABELS = ['M','T','W','T','F','S','S'];
   labelCol.innerHTML = DAY_LABELS.map(l => `<span>${l}</span>`).join('');
-
   grid.innerHTML = '';
   const today = new Date();
   today.setHours(0,0,0,0);
-
-  // Start from the Monday 6 weeks before the current week's Monday
-  // so we always show exactly 7 weeks (49 cells), flowing col-by-col
-  const dow = today.getDay(); // 0=Sun
+  const dow = today.getDay();
   const daysToMon = (dow === 0 ? 6 : dow - 1);
   const thisMon = new Date(today);
   thisMon.setDate(today.getDate() - daysToMon);
   const startMon = new Date(thisMon);
-  startMon.setDate(thisMon.getDate() - 42); // 6 weeks back
-
-  // Grid is 7 cols (weeks) × 7 rows (Mon-Sun), auto-flow: column
-  // So we add cells day by day within each week column
+  startMon.setDate(thisMon.getDate() - 42);
   for (let week = 0; week < 7; week++) {
     for (let day = 0; day < 7; day++) {
       const d = new Date(startMon);
@@ -1594,6 +1397,8 @@ function renderDayHeatmap() {
     }
   }
 }
+
+// ── COLLECT ───────────────────────────────────────────
 function collectCurrentWeek() {
   const wk = weekKey(currentWeek);
   if (!allData[wk]) allData[wk] = {};
@@ -1610,186 +1415,11 @@ function collectCurrentWeek() {
   allData['finance'] = fin;
 }
 
-function collectEvidence() {
-  const wk = weekKey(evWeek);
-  if (!allData[wk]) allData[wk] = {};
-  const ev = {};
-  EV_FIELDS.forEach(id => { const el = document.getElementById(id); if (el) ev[id]=el.value; });
-  allData[wk].evidence = ev;
-}
-
-function collectSnapshot() {
-  const key = `snapshot-${currentSnapshotMonth}`;
-  const snap = {};
-  SNAP_FIELDS.forEach(id => { const el = document.getElementById(id); if (el) snap[id]=el.value; });
-  allData[key] = snap;
-}
-
 function scheduleAutoSave() {
   collectCurrentWeek(); collectDaily(); computeScore();
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => { saveLocal(); syncNow(false); }, 2000);
-  showToast('Saving…');
+  saveTimer = setTimeout(() => { saveLocal(); showToast('✓ Saved', 'success'); }, 1500);
   renderDayHeatmap();
-}
-
-// ── EVIDENCE ─────────────────────────────────────────
-function renderEvidence() {
-  const wkLbl = document.getElementById('ev-week-label');
-  const wkNum = document.getElementById('ev-week-num');
-  if (!wkLbl) return; // tab removed
-  const wk = weekKey(evWeek);
-  const ev = allData[wk]?.evidence || {};
-  const ws = getWeekStart(evWeek);
-  const we = new Date(ws); we.setDate(we.getDate() + 6);
-  wkLbl.textContent = `${formatDate(ws)} – ${formatDate(we)}`;
-  wkNum.textContent = evWeek + 1;
-  EV_FIELDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = ev[id] || '';
-  });
-  renderEvidenceHistory();
-}
-
-function renderEvidenceHistory() {
-  const list = document.getElementById('evidence-history-list');
-  if (!list) return; // tab removed
-  list.innerHTML = '';
-  const chipLabels = {
-    'ev-enjoyed': 'Enjoyed', 'ev-disliked': 'Disliked', 'ev-surprising': 'Surprising',
-    'ev-product': 'Product',  'ev-backend': 'Backend',   'ev-leadership': 'Leadership'
-  };
-  const chipCls = {
-    'ev-enjoyed':'enjoyed','ev-disliked':'disliked','ev-surprising':'surprising',
-    'ev-product':'product','ev-backend':'backend','ev-leadership':'leadership'
-  };
-  for (let i=0; i<totalWeeks(); i++) {
-    const wk = weekKey(i);
-    const ev = allData[wk]?.evidence;
-    if (!ev) continue;
-    const ws = getWeekStart(i);
-    const keys = currentEvidenceFilter === 'all' ? EV_FIELDS : [currentEvidenceFilter];
-    keys.forEach(k => {
-      if (!ev[k]) return;
-      const row = document.createElement('div');
-      row.style.cssText = 'display:flex;gap:0.6rem;align-items:flex-start;padding:0.6rem;background:var(--bg3);border:1px solid var(--border);border-radius:7px;animation:fadeIn 0.2s';
-      row.innerHTML = `
-        <div style="flex-shrink:0;padding-top:0.05rem">
-          <span class="evidence-chip ${chipCls[k]}" style="font-size:0.55rem">${chipLabels[k]}</span>
-          <div style="font-family:var(--mono);font-size:0.58rem;color:var(--text3);margin-top:0.2rem">W${i+1} · ${formatDate(ws)}</div>
-        </div>
-        <div style="font-family:var(--mono);font-size:0.72rem;color:var(--text2);line-height:1.7;flex:1">${escHtml(ev[k])}</div>`;
-      list.appendChild(row);
-    });
-  }
-  if (!list.innerHTML) {
-    list.innerHTML = '<div style="font-family:var(--mono);font-size:0.7rem;color:var(--text3);text-align:center;padding:1.5rem">No evidence logged yet for this filter.</div>';
-  }
-}
-
-EV_FIELDS.forEach(id => {
-  setTimeout(() => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', () => {
-      collectEvidence(); scheduleAutoSave();
-    });
-  }, 100);
-});
-
-const evPrev = document.getElementById('ev-prev-week');
-const evNext = document.getElementById('ev-next-week');
-if (evPrev) evPrev.addEventListener('click', () => {
-  if (evWeek > 0) { collectEvidence(); evWeek--; renderEvidence(); }
-});
-if (evNext) evNext.addEventListener('click', () => {
-  if (evWeek < totalWeeks()-1) { collectEvidence(); evWeek++; renderEvidence(); }
-});
-
-document.querySelectorAll('[data-filter]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentEvidenceFilter = btn.dataset.filter;
-    renderEvidenceHistory();
-  });
-});
-
-// ── SNAPSHOT ─────────────────────────────────────────
-function buildSnapshotTabs() {
-  const row = document.getElementById('snapshot-month-tabs');
-  if (!row) return;
-  row.innerHTML = '';
-  MONTHS.forEach(m => {
-    const btn = document.createElement('button');
-    btn.className = 'snapshot-month-btn' + (m.num === currentSnapshotMonth ? ' active' : '');
-    btn.textContent = m.label;
-    btn.addEventListener('click', () => {
-      collectSnapshot();
-      currentSnapshotMonth = m.num;
-      document.querySelectorAll('.snapshot-month-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      renderSnapshot();
-    });
-    row.appendChild(btn);
-  });
-}
-
-function renderSnapshot() {
-  const key = `snapshot-${currentSnapshotMonth}`;
-  const snap = allData[key] || {};
-  SNAP_FIELDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = snap[id] || '';
-  });
-  // Timeline
-  const tl = document.getElementById('snapshot-timeline');
-  if (!tl) return;
-  tl.innerHTML = '';
-  MONTHS.forEach(m => {
-    const s = allData[`snapshot-${m.num}`];
-    const hasData = s && (s['snap-win'] || s['snap-lesson']);
-    const item = document.createElement('div');
-    item.style.cssText = 'display:flex;gap:0.6rem;align-items:flex-start';
-    item.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0">
-        <div style="width:8px;height:8px;border-radius:50%;background:${hasData?'var(--accent)':'var(--bg4)'};border:1.5px solid ${hasData?'var(--accent)':'var(--border2)'};flex-shrink:0"></div>
-        ${m.num < 12 ? '<div style="width:1px;height:20px;background:var(--border)"></div>' : ''}
-      </div>
-      <div style="padding-bottom:0.5rem;cursor:pointer" onclick="switchSnapshot(${m.num})">
-        <div style="font-family:var(--mono);font-size:0.64rem;color:${m.num===currentSnapshotMonth?'var(--accent)':'var(--text2)'};font-weight:500">${EXPERIMENTS[m.num]?.month || m.label}</div>
-        ${hasData ? `<div style="font-family:var(--mono);font-size:0.62rem;color:var(--text3);line-height:1.5;margin-top:0.12rem">${escHtml((s['snap-win']||'').substring(0,50))}${(s['snap-win']||'').length>50?'…':''}</div>` : '<div style="font-family:var(--mono);font-size:0.6rem;color:var(--text3)">No entry yet</div>'}
-      </div>`;
-    tl.appendChild(item);
-  });
-  // Confidence latest
-  const conf = document.getElementById('snapshot-confidence');
-  if (!conf) return;
-  conf.innerHTML = '';
-  const lastWk = weekKey(currentWeekOffset());
-  const latestConf = allData[lastWk]?.confidence || {};
-  CONFIDENCE_DIMS.forEach(d => {
-    const val = latestConf[d.key] || 0;
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:center;justify-content:space-between';
-    row.innerHTML = `
-      <span style="font-family:var(--mono);font-size:0.66rem;color:var(--text2)">${d.label}</span>
-      <div style="display:flex;gap:3px">
-        ${[1,2,3,4,5].map(i=>`<div style="width:8px;height:8px;border-radius:50%;background:${i<=val?'var(--accent)':'var(--bg4)'};border:1px solid ${i<=val?'var(--accent)':'var(--border2)'}"></div>`).join('')}
-      </div>`;
-    conf.appendChild(row);
-  });
-  // Listen for changes
-  SNAP_FIELDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.removeEventListener('input', snapSave); el.addEventListener('input', snapSave); }
-  });
-}
-function snapSave() { collectSnapshot(); saveLocal(); showToast('Saving…'); }
-function switchSnapshot(monthNum) {
-  collectSnapshot();
-  currentSnapshotMonth = monthNum;
-  document.querySelectorAll('.snapshot-month-btn').forEach((b,i) => b.classList.toggle('active', MONTHS[i].num === monthNum));
-  renderSnapshot();
 }
 
 // ── DAILY TRACKER ─────────────────────────────────────
@@ -1883,7 +1513,6 @@ document.getElementById('next-week').addEventListener('click', () => {
   if (currentWeek < totalWeeks()-1) { currentWeek++; renderWeek(); renderHistory(); }
 });
 document.getElementById('today-btn').addEventListener('click', () => { currentWeek=currentWeekOffset(); renderWeek(); renderHistory(); });
-document.getElementById('sync-btn').addEventListener('click', () => { collectCurrentWeek(); collectDaily(); syncNow(false); });
 
 // ── INIT ─────────────────────────────────────────────
 initRatings();
@@ -1891,6 +1520,47 @@ initFinance();
 QUAL_FIELDS.forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', scheduleAutoSave);
+});
+
+// ── EXPORT / IMPORT ──────────────────────────────────
+document.getElementById('export-btn').addEventListener('click', () => {
+  collectCurrentWeek();
+  collectDaily();
+  const json = JSON.stringify(allData, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'life-system-2026-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✓ Exported', 'success');
+});
+
+document.getElementById('import-input').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = evt => {
+    try {
+      const parsed = JSON.parse(evt.target.result);
+      if (typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('bad format');
+      // Merge: imported data wins over existing
+      allData = Object.assign({}, allData, parsed);
+      saveLocal();
+      renderWeek();
+      renderHistory();
+      renderDayHeatmap();
+      renderDaily();
+      showToast('✓ Imported successfully', 'success');
+    } catch (err) {
+      showToast('Import failed — invalid JSON', 'error-toast');
+    }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
 });
 </script>
 </body>
