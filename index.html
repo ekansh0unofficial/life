@@ -884,7 +884,28 @@ select.text-field { appearance: none; cursor: pointer; }
       </div>
 
       <div class="daily-cols">
-        <div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <!-- Today's Focus above Tasks -->
+          <div class="goals-card">
+            <div class="goals-title">Today's Focus</div>
+            <div class="daily-stat-row">
+              <div class="daily-stat">
+                <div class="daily-stat-num" id="stat-done">0</div>
+                <div class="daily-stat-label">Done</div>
+              </div>
+              <div class="daily-stat">
+                <div class="daily-stat-num" id="stat-remaining">0</div>
+                <div class="daily-stat-label">Left</div>
+              </div>
+            </div>
+            <div class="field-label" style="margin-bottom:0.5rem">Top 3 priorities</div>
+            <div class="top3-list">
+              <div class="top3-item"><span class="top3-num">1</span><input class="top3-input" id="top3-1" placeholder="Most important today..." /></div>
+              <div class="top3-item"><span class="top3-num">2</span><input class="top3-input" id="top3-2" placeholder="Second priority..." /></div>
+              <div class="top3-item"><span class="top3-num">3</span><input class="top3-input" id="top3-3" placeholder="Third priority..." /></div>
+            </div>
+          </div>
+
           <div class="task-section">
             <div class="task-section-header">
               <div class="task-section-title">Tasks</div>
@@ -906,26 +927,6 @@ select.text-field { appearance: none; cursor: pointer; }
         </div>
 
         <div class="daily-side">
-          <div class="goals-card">
-            <div class="goals-title">Today's Focus</div>
-            <div class="daily-stat-row">
-              <div class="daily-stat">
-                <div class="daily-stat-num" id="stat-done">0</div>
-                <div class="daily-stat-label">Done</div>
-              </div>
-              <div class="daily-stat">
-                <div class="daily-stat-num" id="stat-remaining">0</div>
-                <div class="daily-stat-label">Left</div>
-              </div>
-            </div>
-            <div class="field-label" style="margin-bottom:0.5rem">Top 3 priorities</div>
-            <div class="top3-list">
-              <div class="top3-item"><span class="top3-num">1</span><input class="top3-input" id="top3-1" placeholder="Most important today..." /></div>
-              <div class="top3-item"><span class="top3-num">2</span><input class="top3-input" id="top3-2" placeholder="Second priority..." /></div>
-              <div class="top3-item"><span class="top3-num">3</span><input class="top3-input" id="top3-3" placeholder="Third priority..." /></div>
-            </div>
-          </div>
-
           <div class="goals-card">
             <div class="goals-title">Habits</div>
             <div class="habit-list" id="habit-list"></div>
