@@ -658,13 +658,37 @@ select.text-field { appearance: none; cursor: pointer; }
           </div>
         </div>
 
+        <!-- Recovery -->
+        <div class="qual-section">
+          <div class="qual-section-header">
+            <div class="qual-section-title">Recovery</div>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="rating-row" data-key="recovery-rating" style="margin-bottom:0"></div>
+              <div class="qual-tag">P2</div>
+            </div>
+          </div>
+          <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text3);letter-spacing:0.03em;margin-bottom:0.7rem">
+            measure: did my brain cool down? — not: did I solve a Leetcode medium
+          </div>
+          <div class="two-col">
+            <div>
+              <div class="field-label">What actually helped this week</div>
+              <textarea class="text-field" id="recovery-helped" placeholder="Walk, music, friends, gaming, nothing..." rows="3"></textarea>
+            </div>
+            <div>
+              <div class="field-label">What was still running in the background</div>
+              <textarea class="text-field" id="recovery-residue" placeholder="Client fear, tomorrow's meeting, unknown bugs..." rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
         <!-- Backend / Coding -->
         <div class="qual-section">
           <div class="qual-section-header">
             <div class="qual-section-title">Backend / Coding</div>
             <div style="display:flex;align-items:center;gap:0.5rem">
               <div class="rating-row" data-key="backend-rating" style="margin-bottom:0"></div>
-              <div class="qual-tag">P2–P3</div>
+              <div class="qual-tag">P5–P6</div>
             </div>
           </div>
           <div class="two-col">
@@ -960,12 +984,12 @@ const END_DATE   = new Date('2026-12-31');
 
 const BUCKETS = [
   { key: 'job',      name: 'Startup Job',         min: 45, max: 50, priority: 'P1', p1: true },
-  { key: 'backend',  name: 'Backend / Systems',    min: 7,  max: 10, priority: 'P2' },
-  { key: 'coding',   name: 'Coding Sharpness',     min: 5,  max: 7,  priority: 'P3' },
-  { key: 'physical', name: 'Physical Activity',    min: 3,  max: 4,  priority: 'P4' },
-  { key: 'exp',      name: 'Monthly Experiment',   min: 3,  max: 5,  priority: 'P5' },
-  { key: 'social',   name: 'Social Participation', min: 3,  max: 5,  priority: 'P6' },
-  { key: 'review',   name: 'Weekly Review',        min: 0.5, max: 1, priority: 'P7' },
+  { key: 'physical', name: 'Physical Activity',    min: 3,  max: 4,  priority: 'P3' },
+  { key: 'social',   name: 'Social Participation', min: 3,  max: 5,  priority: 'P4' },
+  { key: 'coding',   name: 'Coding Sharpness',     min: 5,  max: 7,  priority: 'P5' },
+  { key: 'backend',  name: 'Backend / Systems',    min: 7,  max: 10, priority: 'P6' },
+  { key: 'exp',      name: 'Monthly Experiment',   min: 3,  max: 5,  priority: 'P7' },
+  { key: 'review',   name: 'Weekly Review',        min: 0.5, max: 1, priority: 'P8' },
 ];
 
 const EXPERIMENTS = {
@@ -1002,11 +1026,11 @@ const MISSION_DIMS = [
 ];
 
 const QUAL_FIELDS = [
-  'work-well','work-wrong','backend-note','coding-note',
+  'work-well','work-wrong','recovery-helped','recovery-residue','backend-note','coding-note',
   'career-build','career-strat','health-note','social-note','adjustments'
 ];
 const FIN_FIELDS = ['fin-emergency','fin-relocation','fin-replacement','fin-investments'];
-const RATINGS = ['work-rating','backend-rating','energy-building','strategy-pull','health-rating','isolation-rating'];
+const RATINGS = ['work-rating','recovery-rating','backend-rating','energy-building','strategy-pull','health-rating','isolation-rating'];
 
 // ── STATE ───────────────────────────────────────────
 let allData  = {};
@@ -1255,28 +1279,45 @@ function updateFinTotal() {
 // ── SCORE ────────────────────────────────────────────
 function computeScore() {
   const wk = weekKey(currentWeek);
-  const hours = allData[wk]?.hours || {};
+  const wkData = allData[wk] || {};
+  const hours = wkData.hours || {};
+  const ratings = wkData.ratings || {};
   let score = 0, parts = [];
   const bMap = {};
   BUCKETS.forEach(b => bMap[b.key] = b);
-  function addBucket(key, label, color) {
+
+  function addHoursBucket(key, label, color, weight) {
     const b = bMap[key];
     const h = hours[key] || 0;
-    const s = h >= b.min ? 25 : h > 0 ? Math.round((h/b.min)*25) : 0;
+    const s = h >= b.min ? weight : h > 0 ? Math.round((h/b.min)*weight) : 0;
     score += s;
-    parts.push({ label, color, val: s });
+    parts.push({ label, color, val: s, weight });
   }
-  addBucket('backend',  'Backend',  'var(--purple)');
-  addBucket('coding',   'Coding',   'var(--accent)');
-  addBucket('physical', 'Health',   'var(--green)');
-  addBucket('social',   'Social',   'var(--gold)');
+  // Recovery is a felt state, not a quantity — "did my brain cool down?"
+  // is answered by the 1-5 rating, not by hours logged. A week with the
+  // recovery-rating field never filled in (pre-recovery-tracking weeks)
+  // is shown as untracked rather than scored as a 0.
+  function addRecoveryBucket(label, color, weight) {
+    const r = ratings['recovery-rating'];
+    const tracked = typeof r === 'number' && r > 0;
+    const s = tracked ? Math.round((r/5)*weight) : null;
+    if (s !== null) score += s;
+    parts.push({ label, color, val: s, weight, untracked: !tracked });
+  }
+  addRecoveryBucket('Recovery', 'var(--red)', 20);
+  addHoursBucket('physical', 'Health',   'var(--green)',  20);
+  addHoursBucket('social',   'Social',   'var(--gold)',   20);
+  addHoursBucket('coding',   'Coding',   'var(--accent)', 20);
+  addHoursBucket('backend',  'Backend',  'var(--purple)', 20);
   document.getElementById('opt-score').textContent = Math.min(100, score);
   const bd = document.getElementById('score-breakdown');
   bd.innerHTML = '';
   parts.forEach(p => {
     const el = document.createElement('div');
     el.className = 'score-item';
-    el.innerHTML = `<div class="score-item-dot" style="background:${p.color}"></div>${p.label} ${p.val}/25`;
+    el.innerHTML = p.untracked
+      ? `<div class="score-item-dot" style="background:${p.color}"></div>${p.label} not tracked`
+      : `<div class="score-item-dot" style="background:${p.color}"></div>${p.label} ${p.val}/${p.weight}`;
     bd.appendChild(el);
   });
 }
