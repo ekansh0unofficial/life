@@ -572,6 +572,58 @@ body { min-height: 100vh; }
 .top3-input:focus { border-color: var(--accent); }
 .top3-input::placeholder { color: var(--text3); }
 
+.activity-row {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg2);
+}
+.activity-row:last-child { margin-bottom: 0; }
+.activity-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.45rem; }
+.activity-name { font-size: 0.76rem; font-weight: 600; }
+.activity-done-btn {
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.05em; text-transform: uppercase;
+  border: 1px solid var(--border2); border-radius: 5px; background: var(--bg3); color: var(--text3);
+  padding: 0.18rem 0.5rem; cursor: pointer; transition: all 0.15s;
+}
+.activity-done-btn.on { background: var(--accent2); border-color: var(--accent); color: var(--accent); }
+.activity-fields { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+.activity-dur-input {
+  width: 52px; background: var(--bg4); border: 1px solid var(--border2); border-radius: 5px;
+  color: var(--text); font-family: var(--mono); font-size: 0.75rem; padding: 0.2rem 0.3rem; text-align: center; outline: none;
+}
+.activity-dur-input:focus { border-color: var(--accent); }
+.activity-dur-label { font-family: var(--mono); font-size: 0.58rem; color: var(--text3); }
+.activity-diff-row { display: flex; gap: 0.25rem; }
+.activity-diff-dot {
+  width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--border2); background: var(--bg3);
+  color: var(--text3); font-family: var(--mono); font-size: 0.58rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.activity-diff-dot.active { background: var(--accent3); border-color: var(--accent); color: var(--accent); }
+.activity-progress-input {
+  width: 100%; background: var(--bg4); border: 1px solid var(--border2); border-radius: 5px;
+  color: var(--text); font-size: 0.72rem; padding: 0.3rem 0.45rem; outline: none;
+}
+.activity-progress-input:focus { border-color: var(--accent); }
+.activity-progress-input::placeholder { color: var(--text3); }
+
+.exec-row { display: grid; grid-template-columns: 90px 1fr 70px 70px; align-items: center; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.72rem; }
+.exec-row:last-child { border-bottom: none; }
+.exec-row-head { font-family: var(--mono); font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); padding-bottom: 0.3rem; border-bottom: 1px solid var(--border2); }
+.exec-bar-wrap { height: 5px; background: var(--bg4); border-radius: 3px; overflow: hidden; }
+.exec-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
+.exec-pct { font-family: var(--mono); text-align: right; }
+.exec-return { font-family: var(--mono); text-align: right; color: var(--text2); }
+.exec-summary-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--border2); font-family: var(--mono); font-size: 0.62rem; color: var(--text2); }
+.exec-summary-row b { color: var(--accent); }
+.failure-mode-select {
+  width: 100%; background: var(--bg4); border: 1px solid var(--border2); border-radius: 6px;
+  color: var(--text); font-family: var(--mono); font-size: 0.72rem; padding: 0.4rem 0.5rem; outline: none; margin-top: 0.5rem;
+}
+.failure-mode-select:focus { border-color: var(--accent); }
+
 @media(max-width: 960px) {
   .main-grid { grid-template-columns: 1fr; }
   .topbar { padding: 0.7rem 1rem; flex-wrap: wrap; gap: 0.5rem; height: auto; }
@@ -793,6 +845,36 @@ select.text-field { appearance: none; cursor: pointer; }
           <div class="mission-grid" id="mission-status-grid"></div>
         </div>
 
+        <!-- Execution -->
+        <div class="qual-section">
+          <div class="qual-section-header">
+            <div class="qual-section-title">Execution</div>
+            <div class="qual-tag">from daily log</div>
+          </div>
+          <div class="exec-row exec-row-head">
+            <div>Activity</div><div>Consistency</div><div style="text-align:right">%</div><div style="text-align:right">Return</div>
+          </div>
+          <div id="exec-rows"></div>
+          <div class="exec-summary-row">
+            <span>Difficulty transitions</span>
+            <span><b id="diff-survived">0</b> survived · <b id="diff-abandoned">0</b> abandoned</span>
+          </div>
+          <div class="field-label" style="margin-top:0.6rem">Primary failure mode this week</div>
+          <select class="failure-mode-select" id="failure-mode">
+            <option value="">— select —</option>
+            <option value="overload">overload</option>
+            <option value="low_energy">low_energy</option>
+            <option value="low_interest">low_interest</option>
+            <option value="difficulty">difficulty</option>
+            <option value="distraction">distraction</option>
+            <option value="unclear_next_step">unclear_next_step</option>
+            <option value="external_interruptions">external_interruptions</option>
+            <option value="health">health</option>
+            <option value="avoidance">avoidance</option>
+            <option value="other">other</option>
+          </select>
+        </div>
+
         <!-- Adjustments -->
         <div class="qual-section">
           <div class="qual-section-header">
@@ -930,6 +1012,11 @@ select.text-field { appearance: none; cursor: pointer; }
             </div>
           </div>
 
+          <div class="goals-card">
+            <div class="goals-title">Core Activities</div>
+            <div id="activity-list"></div>
+          </div>
+
           <div class="task-section">
             <div class="task-section-header">
               <div class="task-section-title">Tasks</div>
@@ -1027,7 +1114,14 @@ const MISSION_DIMS = [
 
 const QUAL_FIELDS = [
   'work-well','work-wrong','recovery-helped','recovery-residue','backend-note','coding-note',
-  'career-build','career-strat','health-note','social-note','adjustments'
+  'career-build','career-strat','health-note','social-note','adjustments','failure-mode'
+];
+
+const CORE_ACTIVITIES = [
+  { key: 'dsa',      name: 'DSA',      target: 5, min: 15 },
+  { key: 'exercise', name: 'Exercise', target: 5, min: 10 },
+  { key: 'piano',    name: 'Piano',    target: 4, min: 10 },
+  { key: 'project',  name: 'Project',  target: 3, min: 20 },
 ];
 const FIN_FIELDS = ['fin-emergency','fin-relocation','fin-replacement','fin-investments'];
 const RATINGS = ['work-rating','recovery-rating','backend-rating','energy-building','strategy-pull','health-rating','isolation-rating'];
@@ -1059,6 +1153,9 @@ function getMonthFromOffset(offset) { return getWeekStart(offset).getMonth() + 1
 function dayKey(offset) {
   const d = new Date();
   d.setDate(d.getDate() + offset);
+  return dayKeyFromDate(d);
+}
+function dayKeyFromDate(d) {
   return `day-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 function formatDayLabel(offset) {
@@ -1361,6 +1458,13 @@ function renderWeek() {
   // Mission status
   loadMissionStatus();
 
+  // Failure mode
+  const fmSel = document.getElementById('failure-mode');
+  if (fmSel) fmSel.value = data.quals?.['failure-mode'] || '';
+
+  // Execution (rolled up from daily activity log)
+  renderExecution();
+
   // Experiment
   const curMonth = getMonthFromOffset(currentWeek);
   const exp = EXPERIMENTS[curMonth];
@@ -1401,6 +1505,91 @@ function renderHistory() {
     cell.addEventListener('click', () => { currentWeek = i; renderWeek(); renderHistory(); });
     grid.appendChild(cell);
   }
+}
+
+// ── EXECUTION ROLLUP (Week ← Day) ────────────────────
+// Day is the atomic unit (activity log). Week aggregates 7 day-records
+// into consistency / return-rate / difficulty-transition metrics.
+function getWeekDayKeys(weekOffset) {
+  const ws = getWeekStart(weekOffset);
+  const keys = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(ws); d.setDate(ws.getDate() + i);
+    keys.push(dayKeyFromDate(d));
+  }
+  return keys;
+}
+function computeExecution(weekOffset) {
+  const weekKeys = getWeekDayKeys(weekOffset);
+  const weekEnd = new Date(getWeekStart(weekOffset)); weekEnd.setDate(weekEnd.getDate() + 6);
+  const result = {};
+  let diffSurvived = 0, diffAbandoned = 0;
+
+  CORE_ACTIVITIES.forEach(act => {
+    // Consistency: completed sessions this week / planned sessions
+    const completed = weekKeys.filter(k => allData[k]?.activities?.[act.key]?.done).length;
+    const consistency = act.target > 0 ? Math.round((completed / act.target) * 100) : 0;
+
+    // Return rate: look back up to 28 days before week end for miss→return gaps.
+    // A "miss" is a day with no completed session after activity tracking began (first ever done day).
+    const lookback = 28;
+    const days = [];
+    for (let i = lookback; i >= 0; i--) {
+      const d = new Date(weekEnd); d.setDate(d.getDate() - i);
+      if (d > weekEnd) continue;
+      days.push({ date: d, key: dayKeyFromDate(d) });
+    }
+    const firstDoneIdx = days.findIndex(d => allData[d.key]?.activities?.[act.key]?.done);
+    let gaps = [];
+    if (firstDoneIdx !== -1) {
+      let lastDoneIdx = firstDoneIdx;
+      for (let i = firstDoneIdx + 1; i < days.length; i++) {
+        if (allData[days[i].key]?.activities?.[act.key]?.done) {
+          const gap = i - lastDoneIdx - 1; // days missed in between
+          if (gap > 0) gaps.push(gap);
+          lastDoneIdx = i;
+        }
+      }
+    }
+    const avgReturn = gaps.length ? (gaps.reduce((a,b)=>a+b,0) / gaps.length) : null;
+
+    // Difficulty transitions within this week: a session rated 3+ that was
+    // followed by another completed session within 3 days = survived.
+    weekKeys.forEach((k, idx) => {
+      const entry = allData[k]?.activities?.[act.key];
+      if (entry?.done && entry.difficulty >= 3) {
+        let survived = false;
+        for (let j = 1; j <= 3; j++) {
+          const d = new Date(getWeekStart(weekOffset)); d.setDate(d.getDate() + idx + j);
+          if (allData[dayKeyFromDate(d)]?.activities?.[act.key]?.done) { survived = true; break; }
+        }
+        if (survived) diffSurvived++; else diffAbandoned++;
+      }
+    });
+
+    result[act.key] = { completed, target: act.target, consistency, avgReturn };
+  });
+
+  return { activities: result, diffSurvived, diffAbandoned };
+}
+function renderExecution() {
+  const rowsEl = document.getElementById('exec-rows');
+  if (!rowsEl) return;
+  const exec = computeExecution(currentWeek);
+  rowsEl.innerHTML = '';
+  CORE_ACTIVITIES.forEach(act => {
+    const r = exec.activities[act.key];
+    const row = document.createElement('div');
+    row.className = 'exec-row';
+    row.innerHTML = `
+      <div>${act.name}</div>
+      <div class="exec-bar-wrap"><div class="exec-bar-fill" style="width:${Math.min(100,r.consistency)}%"></div></div>
+      <div class="exec-pct">${r.consistency}%</div>
+      <div class="exec-return">${r.avgReturn===null ? '—' : r.avgReturn.toFixed(1)+'d'}</div>`;
+    rowsEl.appendChild(row);
+  });
+  document.getElementById('diff-survived').textContent = exec.diffSurvived;
+  document.getElementById('diff-abandoned').textContent = exec.diffAbandoned;
 }
 
 // ── DAY HEATMAP ──────────────────────────────────────
@@ -1462,25 +1651,82 @@ function scheduleAutoSave() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => { saveLocal(); showToast('✓ Saved', 'success'); }, 1500);
   renderDayHeatmap();
+  renderExecution();
 }
 
 // ── DAILY TRACKER ─────────────────────────────────────
 function getDayData() {
   const key = dayKey(currentDayOffset);
-  if (!allData[key]) allData[key] = { tasks: [], habits: {}, note: '', top3: ['','',''] };
+  if (!allData[key]) allData[key] = { tasks: [], habits: {}, note: '', top3: ['','',''], activities: {} };
   if (!allData[key].tasks) allData[key].tasks = [];
   if (!allData[key].habits) allData[key].habits = {};
   if (!allData[key].top3) allData[key].top3 = ['','',''];
+  if (!allData[key].activities) allData[key].activities = {};
   return allData[key];
+}
+function getDayDataByKey(key) {
+  const d = allData[key];
+  return d && d.activities ? d : null;
 }
 function renderDaily() {
   const d = getDayData();
   const title = currentDayOffset===0?'Today':currentDayOffset===-1?'Yesterday':currentDayOffset===1?'Tomorrow':formatDayLabel(currentDayOffset);
   document.getElementById('daily-title').textContent = title;
   document.getElementById('daily-date-label').textContent = formatDayLabel(currentDayOffset);
-  renderTaskList(d); renderHabits(d);
+  renderTaskList(d); renderHabits(d); renderCoreActivities(d);
   document.getElementById('daily-note').value = d.note || '';
   ['top3-1','top3-2','top3-3'].forEach((id,i) => { document.getElementById(id).value = d.top3?.[i]||''; });
+}
+function renderCoreActivities(d) {
+  const wrap = document.getElementById('activity-list');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  CORE_ACTIVITIES.forEach(act => {
+    const a = d.activities[act.key] || { done:false, duration:'', difficulty:0, progress:'' };
+    const row = document.createElement('div');
+    row.className = 'activity-row';
+    row.innerHTML = `
+      <div class="activity-top">
+        <span class="activity-name">${act.name}</span>
+        <button class="activity-done-btn${a.done?' on':''}" data-key="${act.key}">${a.done?'✓ done':'mark done'}</button>
+      </div>
+      <div class="activity-fields">
+        <input type="number" class="activity-dur-input" data-key="${act.key}" placeholder="0" value="${a.duration ?? ''}" min="0" />
+        <span class="activity-dur-label">min (target ${act.min}+)</span>
+        <div class="activity-diff-row" data-key="${act.key}">
+          ${[1,2,3,4,5].map(v=>`<button type="button" class="activity-diff-dot${a.difficulty===v?' active':''}" data-val="${v}">${v}</button>`).join('')}
+        </div>
+      </div>
+      <input type="text" class="activity-progress-input" data-key="${act.key}" placeholder="What can I do now that I couldn't before?" value="${escHtml(a.progress||'')}" />`;
+    row.querySelector('.activity-done-btn').addEventListener('click', () => {
+      const day = getDayData();
+      if (!day.activities[act.key]) day.activities[act.key] = { done:false, duration:'', difficulty:0, progress:'' };
+      day.activities[act.key].done = !day.activities[act.key].done;
+      renderCoreActivities(day); scheduleAutoSave();
+    });
+    row.querySelector('.activity-dur-input').addEventListener('input', e => {
+      const day = getDayData();
+      if (!day.activities[act.key]) day.activities[act.key] = { done:false, duration:'', difficulty:0, progress:'' };
+      day.activities[act.key].duration = e.target.value === '' ? '' : parseFloat(e.target.value);
+      scheduleAutoSave();
+    });
+    row.querySelectorAll('.activity-diff-dot').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const day = getDayData();
+        if (!day.activities[act.key]) day.activities[act.key] = { done:false, duration:'', difficulty:0, progress:'' };
+        const val = parseInt(btn.dataset.val,10);
+        day.activities[act.key].difficulty = day.activities[act.key].difficulty === val ? 0 : val;
+        renderCoreActivities(day); scheduleAutoSave();
+      });
+    });
+    row.querySelector('.activity-progress-input').addEventListener('input', e => {
+      const day = getDayData();
+      if (!day.activities[act.key]) day.activities[act.key] = { done:false, duration:'', difficulty:0, progress:'' };
+      day.activities[act.key].progress = e.target.value;
+      scheduleAutoSave();
+    });
+    wrap.appendChild(row);
+  });
 }
 function renderTaskList(d) {
   const list = document.getElementById('task-list'); list.innerHTML = '';
@@ -1561,7 +1807,7 @@ initRatings();
 initFinance();
 QUAL_FIELDS.forEach(id => {
   const el = document.getElementById(id);
-  if (el) el.addEventListener('input', scheduleAutoSave);
+  if (el) el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', scheduleAutoSave);
 });
 
 // ── EXPORT / IMPORT ──────────────────────────────────
